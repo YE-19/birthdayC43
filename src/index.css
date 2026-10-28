@@ -1,0 +1,181 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #1a1a1a;
+  --color-foreground: #f4f4f5;
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+  --font-cursive: 'Great Vibes', cursive;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    margin: 0;
+    min-height: 100vh;
+  }
+}
+
+/* Custom CSS for Vintage/Scrapbook Aesthetics */
+
+.vintage-border {
+  border: 2px dashed rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
+}
+
+.postage-stamp {
+  position: relative;
+  background: white;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.postage-stamp::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  mask-image: radial-gradient(circle at 0 0, transparent 4px, black 5px),
+    radial-gradient(circle at 100% 0, transparent 4px, black 5px),
+    radial-gradient(circle at 0 100%, transparent 4px, black 5px),
+    radial-gradient(circle at 100% 100%, transparent 4px, black 5px);
+  mask-size: 51% 51%;
+  mask-position: top left, top right, bottom left, bottom right;
+  mask-repeat: no-repeat;
+  pointer-events: none;
+}
+
+.postage-edge {
+  position: relative;
+  background-color: #fff;
+  padding: 8px;
+}
+
+.postage-edge::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  bottom: -4px;
+  left: -4px;
+  background: inherit;
+  z-index: -1;
+  background-image: radial-gradient(circle at 6px 6px, transparent 4px, #1a1a1a 4.5px);
+  background-size: 12px 12px;
+  background-position: -6px -6px;
+}
+
+.real-ticket {
+  background-color: #e2dfd8;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  /* The mask creates perforated jagged edges on left and right */
+  -webkit-mask-image: linear-gradient(to right, transparent 8px, black 8px, black calc(100% - 8px), transparent calc(100% - 8px)),
+    radial-gradient(circle at 0px 8px, transparent 5px, black 5.5px),
+    radial-gradient(circle at 100% 8px, transparent 5px, black 5.5px);
+  -webkit-mask-size: 100% 100%, 8px 16px, 8px 16px;
+  -webkit-mask-position: 0 0, 0 0, 100% 0;
+  -webkit-mask-repeat: no-repeat, repeat-y, repeat-y;
+  mask-image: linear-gradient(to right, transparent 8px, black 8px, black calc(100% - 8px), transparent calc(100% - 8px)),
+    radial-gradient(circle at 0px 8px, transparent 5px, black 5.5px),
+    radial-gradient(circle at 100% 8px, transparent 5px, black 5.5px);
+  mask-size: 100% 100%, 8px 16px, 8px 16px;
+  mask-position: 0 0, 0 0, 100% 0;
+  mask-repeat: no-repeat, repeat-y, repeat-y;
+}
+
+.stamp-paper {
+  background-color: #fdfbf7;
+  /* Perforated inward edges on all 4 sides */
+  background-image: radial-gradient(circle at 6px 6px, transparent 4px, #fdfbf7 4.5px);
+  background-size: 12px 12px;
+  background-position: -6px -6px;
+  padding: 24px;
+}
+
+.lace-frame {
+  position: relative;
+  padding: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+}
+
+.lace-frame::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  border: 1px dotted rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.tartan-bg {
+  background-color: #8b0000;
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0, 0, 0, 0.1) 10px, rgba(0, 0, 0, 0.1) 20px),
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(0, 0, 0, 0.1) 10px, rgba(0, 0, 0, 0.1) 20px);
+}
+
+.handwritten {
+  font-family: 'Great Vibes', cursive;
+}
+
+/* Animations */
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(20px) rotate(var(--rotation, 0deg));
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotate(var(--rotation, 0deg));
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-pop-in {
+  opacity: 0;
+  animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.animate-fade-in {
+  opacity: 0;
+  animation: fadeIn 1.5s ease-in-out forwards;
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  opacity: 0;
+  animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-700 { animation-delay: 700ms; }
